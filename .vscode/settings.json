@@ -1,0 +1,12 @@
+{
+    "workbench.startupEditor": "newUntitledFile",
+    "editor.wordWrap": "on",
+    "window.zoomLevel": 0,
+    "editor.fontSize": 16,
+    "workbench.iconTheme": "vscode-icons",
+    "editor.formatOnSave": true,
+    "[javascript]": { "editor.formatOnSave": false },
+    "prettier.disableLanguages": ["js"],
+    "eslint.alwaysShowStatus": true,
+    "editor.codeActionsOnSave": { "source.fixAll.eslint": true }
+}
