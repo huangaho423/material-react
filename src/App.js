@@ -1,13 +1,9 @@
-import Button from '@material-ui/core/Button'
-import { Container } from '@material-ui/core'
+import { Main } from './page/Main'
 
 function App() {
   return (
     <>
-      <Container>
-        <h2>Hello world</h2>
-        <Button variant="contained">Button</Button>
-      </Container>
+      <Main />
     </>
   )
 }
