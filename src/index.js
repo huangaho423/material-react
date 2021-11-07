@@ -4,6 +4,10 @@ import App from './App'
 import reportWebVitals from './reportWebVitals'
 import './sass/style.scss'
 
+//redux
+import { Provider } from 'react-redux'
+import { store } from './model/store'
+
 // import font source
 import '@fontsource/roboto/300.css'
 import '@fontsource/roboto/400.css'
@@ -12,7 +16,9 @@ import '@fontsource/roboto/700.css'
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <Provider store={store}>
+      <App />
+    </Provider>
   </React.StrictMode>,
   document.getElementById('root')
 )

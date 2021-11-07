@@ -1,4 +1,4 @@
-import * as React from 'react'
+import { useState } from 'react'
 import { useTheme, styled } from '@mui/material/styles'
 import MuiDrawer from '@mui/material/Drawer'
 import List from '@mui/material/List'
@@ -11,6 +11,8 @@ import ListItemIcon from '@mui/material/ListItemIcon'
 import ListItemText from '@mui/material/ListItemText'
 import InboxIcon from '@mui/icons-material/MoveToInbox'
 import MailIcon from '@mui/icons-material/Mail'
+import { useSelector, useDispatch } from 'react-redux'
+import { sideBarStatus } from '../model/action'
 
 export const drawerWidth = 240
 
@@ -63,10 +65,15 @@ export const DrawerHeader = styled('div')(({ theme }) => ({
 
 export const Sidebar = () => {
   const theme = useTheme()
-  const [open, setOpen] = React.useState(true)
+  const open = useSelector((state) => state.systemReducer.sidebar.drawerOpen)
+  const dispatch = useDispatch()
 
+  // handle sidebar status
   const handleDrawerClose = () => {
-    setOpen(false)
+    return dispatch({
+      type: sideBarStatus,
+      payload: { status: false },
+    })
   }
 
   return (
