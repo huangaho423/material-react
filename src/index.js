@@ -7,6 +7,7 @@ import './sass/style.scss'
 //redux
 import { Provider } from 'react-redux'
 import { store } from './model/store'
+import { BrowserRouter as Router } from 'react-router-dom'
 
 // import font source
 import '@fontsource/roboto/300.css'
@@ -16,9 +17,11 @@ import '@fontsource/roboto/700.css'
 
 ReactDOM.render(
   <React.StrictMode>
-    <Provider store={store}>
-      <App />
-    </Provider>
+    <Router>
+      <Provider store={store}>
+        <App />
+      </Provider>
+    </Router>
   </React.StrictMode>,
   document.getElementById('root')
 )

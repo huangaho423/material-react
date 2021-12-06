@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { NavLink, withRouter } from 'react-router-dom'
 import { useTheme, styled } from '@mui/material/styles'
 import MuiDrawer from '@mui/material/Drawer'
 import List from '@mui/material/List'
@@ -9,12 +9,26 @@ import ChevronRightIcon from '@mui/icons-material/ChevronRight'
 import ListItem from '@mui/material/ListItem'
 import ListItemIcon from '@mui/material/ListItemIcon'
 import ListItemText from '@mui/material/ListItemText'
-import InboxIcon from '@mui/icons-material/MoveToInbox'
-import MailIcon from '@mui/icons-material/Mail'
+import Tooltip from '@mui/material/Tooltip'
+import BarChartIcon from '@mui/icons-material/BarChart'
+import SportsEsportsIcon from '@mui/icons-material/SportsEsports'
+import PersonIcon from '@mui/icons-material/Person'
+import HistoryIcon from '@mui/icons-material/History'
+import WidgetsIcon from '@mui/icons-material/Widgets'
+import BookIcon from '@mui/icons-material/Book'
 import { useSelector, useDispatch } from 'react-redux'
 import { sideBarStatus } from '../model/action'
 
 export const drawerWidth = 240
+
+const sidebarList = [
+  { text: 'Chart', icon: <BarChartIcon />, url: '/chart' },
+  { text: 'Game', icon: <SportsEsportsIcon />, url: '/game' },
+  { text: 'History', icon: <HistoryIcon />, url: '/history' },
+  { text: 'Widget', icon: <WidgetsIcon />, url: '/widget' },
+  { text: 'Post', icon: <BookIcon />, url: '/post' },
+  { text: 'About', icon: <PersonIcon />, url: '/about', divider: true },
+]
 
 const openedMixin = (theme) => ({
   width: drawerWidth,
@@ -32,9 +46,6 @@ const closedMixin = (theme) => ({
   }),
   overflowX: 'hidden',
   width: `calc(${theme.spacing(7)} + 1px)`,
-  [theme.breakpoints.up('sm')]: {
-    width: `calc(${theme.spacing(9)} + 1px)`,
-  },
 })
 
 const Drawer = styled(MuiDrawer, {
@@ -63,7 +74,7 @@ export const DrawerHeader = styled('div')(({ theme }) => ({
   ...theme.mixins.toolbar,
 }))
 
-export const Sidebar = () => {
+const Sidebar = (props) => {
   const theme = useTheme()
   const open = useSelector((state) => state.systemReducer.sidebar.drawerOpen)
   const dispatch = useDispatch()
@@ -91,27 +102,30 @@ export const Sidebar = () => {
         </DrawerHeader>
         <Divider />
         <List>
-          {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-            <ListItem button key={text}>
-              <ListItemIcon>
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-              </ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItem>
-          ))}
-        </List>
-        <Divider />
-        <List>
-          {['All mail', 'Trash', 'Spam'].map((text, index) => (
-            <ListItem button key={text}>
-              <ListItemIcon>
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-              </ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItem>
+          {sidebarList.map((item, index) => (
+            <li key={index}>
+              <Tooltip
+                title={item.text}
+                placement="right"
+                disableHoverListener={open === true}
+              >
+                <ListItem
+                  button
+                  component={NavLink}
+                  to={item.url}
+                  selected={item.url === props.location.pathname}
+                >
+                  <ListItemIcon>{item.icon}</ListItemIcon>
+                  <ListItemText primary={item.text} />
+                </ListItem>
+              </Tooltip>
+              {item.divider ? <Divider /> : ''}
+            </li>
           ))}
         </List>
       </Drawer>
     </>
   )
 }
+
+export default withRouter(Sidebar)

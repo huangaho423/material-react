@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import { styled } from '@mui/material/styles'
 import MuiAppBar from '@mui/material/AppBar'
 import Toolbar from '@mui/material/Toolbar'
@@ -8,6 +7,8 @@ import { SearchInput } from './SearchInput'
 import { drawerWidth } from './Sidebar'
 import { useSelector, useDispatch } from 'react-redux'
 import { sideBarStatus } from '../model/action'
+import { NavbarDropdownMenu } from './NavbarDropdownMenu'
+import LanguageIcon from '@mui/icons-material/Language'
 
 const AppBar = styled(MuiAppBar, {
   shouldForwardProp: (prop) => prop !== 'open',
@@ -55,6 +56,10 @@ export const Navbar = () => {
           <MenuIcon />
         </IconButton>
         <SearchInput />
+        <NavbarDropdownMenu
+          icon={<LanguageIcon />}
+          list={[{ text: '中文' }, { text: 'EN' }]}
+        />
       </Toolbar>
     </AppBar>
   )
